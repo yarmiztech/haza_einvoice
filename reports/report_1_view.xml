@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+                <template id="balance_confirmation_report_view_layout">
+    <t t-call="web.html_container">
+<t t-if="not o" t-set="o" t-value="doc"/>
+<t t-if="not company">
+<!--  Multicompany  -->
+<t t-if="company_id">
+<t t-set="company" t-value="company_id"/>
+</t>
+<t t-elif="o and 'company_id' in o">
+<t t-set="company" t-value="o.company_id.sudo()"/>
+</t>
+<t t-else="else">
+<t t-set="company" t-value="res_company"/>
+</t>
+</t>
+<div class="header" t-att-style="report_header_style">
+    <div class="row">
+<div class="col-6">
+       <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height:100px;align:left;" alt="Logo"/>
+    </div>
+
+
+        <div class="col-6" style="text-align:right;">
+            <h6><t t-esc="company.partner_id.name"/> </h6>
+            <h6><t t-esc="company.street"/> </h6>
+            <h6><t t-esc="company.street2"/> </h6>
+            <h6><t t-esc="company.city"/> </h6>
+            <h6><t t-esc="company.state_id.name"/> </h6>
+            <h6><t t-esc="company.zip"/> </h6>
+
+
+        </div>
+<!---->
+    </div>
+</div>
+<div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto">
+<div t-field="company.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+</div>
+<div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+<t t-raw="0"/>
+</div>
+<div class="footer o_background_footer">
+<div>
+<div t-field="company.report_footer"/>
+<div t-if="report_type == 'pdf'" class="text-muted">
+    <hr style="text-color:orange; width:100%;"></hr>
+     <div class="row">
+        <div class="col-6" style="text-align:right;">
+                        Page:
+                <span class="page"/>
+                         /
+                 <span class="topage"/>
+        </div>
+        <div class="col-6" style="text-align:right;">
+            <span style="color:gray;"> Powered by Enzapps</span>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+    </t>
+    </template>
+<template id="balance_confirmation_report_view">
+    		<t t-call="web.html_container">
+    	    	<t t-foreach="docs" t-as="o">
+            <t t-call="masar_arabia_einvoice.balance_confirmation_report_view_layout">
+                <div class="page">
+                    <h4><center><b>Balance Confirmation</b></center></h4>
+                    <table style="width:100%">
+                    <tr>
+                        <td colspan="1"><b>To,</b></td>
+                        <td colspan="1"><b>Date:</b></td>
+                    </tr>
+                        <tr>
+                        <td colspan="1"><b><t t-esc="o.company_id.name"/> </b></td>
+                        <td colspan="1"><b>Place:</b></td>
+                    </tr>
+                        <tr>
+                        <td colspan="1"><b><t t-esc="o.company_id.street2"/> </b></td>
+                        <td colspan="1"><b>Date:</b></td>
+                    </tr>
+                        <tr>
+                            <td colspan="2"><b>Sir,</b></td>
+                        </tr>
+                         <tr>
+                            <td colspan="2">ഞാൻ തങ്ങളുടെ സ്ഥാപനത്തിൽ നിന്നും സിമന്റ് എടുത്ത വകയിൽ ..................രൂപ ()തിയതി ..........വേറെ തരുവാനുണ്ട് .മേൽ പറഞ്ഞ തുക എനിക്ക് കണക് നോക്കി ബോധ്യപ്പെട്ടതാണെന്ന് s അറിയിക്കുന്നു .</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">എന്ന് വിശ്വസ്തതയോടെ</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Sub Dealer Name:</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Seal and Signature:</td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+                </t>
+            </t>
+</template>
+</odoo>

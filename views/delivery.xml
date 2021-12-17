@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="stock_picking_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.print</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="dc_no"/>
+                    <field name="driver_id"/>
+                    <field name="driver_mobile"/>
+                    <field name="truck_no"/>
+
+                </xpath>
+
+
+            </field>
+    </record>
+    <record id="inherit_res_partner" model="ir.ui.view">
+            <field name="name">Res Partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type_of_customer']" position="before">
+                    <field name="dc_no"/>
+
+                </xpath>
+
+
+            </field>
+    </record>
+
+</odoo>
